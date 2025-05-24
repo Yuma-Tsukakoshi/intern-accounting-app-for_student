@@ -1,6 +1,6 @@
 package com.example.accounting.domain.journal
 
-class JournalSummary(
+data class JournalSummary(
     val value: String?
 ) {
     companion object {

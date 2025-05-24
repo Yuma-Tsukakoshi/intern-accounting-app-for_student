@@ -1,6 +1,6 @@
 package com.example.accounting.domain.journal
 
-class JournalDate(
+data class JournalDate(
     val value: Int
 ) {
     companion object{
