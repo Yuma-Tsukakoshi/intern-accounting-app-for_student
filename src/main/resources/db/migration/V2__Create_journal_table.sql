@@ -8,10 +8,10 @@ CREATE TABLE PUBLIC.journals
 CREATE TABLE PUBLIC.journal_details
 (
     id                  INT AUTO_INCREMENT PRIMARY KEY,
-    debit_credit_type   ENUM('DEBIT', 'CREDIT'),
+    debit_credit_type   VARCHAR(20) NOT NULL ,
     amount              BIGINT,
     account_code        CHAR(4) NOT NULL,
-    journal_id   INT NOT NULL,
+    journal_id          INT NOT NULL,
     FOREIGN KEY (journal_id) REFERENCES journals(id),
     FOREIGN KEY (account_code) REFERENCES accounts(account_code)
 );

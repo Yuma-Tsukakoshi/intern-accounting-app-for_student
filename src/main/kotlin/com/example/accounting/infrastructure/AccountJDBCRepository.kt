@@ -37,7 +37,7 @@ class AccountJDBCRepository(
 
     override fun list(): List<Account> {
         return jooq.selectFrom(ACCOUNTS)
-            .orderBy(ACCOUNTS.ACCOUNT_CODE, ACCOUNTS.PARENT_ACCOUNT_CODE)
+            .orderBy(ACCOUNTS.ACCOUNT_CODE)
             .fetch()
             .map { accountRecord ->
                 Account.reconstruct(

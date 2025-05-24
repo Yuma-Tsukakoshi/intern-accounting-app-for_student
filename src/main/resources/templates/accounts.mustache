@@ -15,18 +15,12 @@
                         <td>科目コード</td>
                         <td>科目名</td>
                         <td>科目タイプ</td>
-                        <td>親科目コード</td>
                     </tr>
                     {{#accounts}}
                         <tr>
                             <td>{{code.value}}</td>
                             <td>{{name.value}}</td>
                             <td>{{accountType}}</td>
-                            <td>
-                                {{#parentCode}}
-                                    {{.}}
-                                {{/parentCode}}
-                            </td>
                         </tr>
                     {{/accounts}}
                 </table>

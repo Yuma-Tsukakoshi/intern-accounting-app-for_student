@@ -2,7 +2,7 @@ CREATE TABLE PUBLIC.accounts
 (
     account_code CHAR(4)    NOT NULL,
     name         VARCHAR(50) NOT NULL,
-    account_type ENUM('PROFIT', 'LOSS', 'EQUITY', 'ASSET', 'LIABILITY'),
+    account_type VARCHAR(20) NOT NULL,
     PRIMARY KEY (account_code)
 );
 
