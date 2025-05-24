@@ -7,22 +7,22 @@
         {{> sidebar}}
         <div class="main">
             <div class="header">
-                <h1>科目一覧</h1>
+                <h1>仕訳一覧</h1>
             </div>
             <div class="content">
                 <table class="table">
                     <tr class="table-header">
-                        <td>科目コード</td>
-                        <td>科目名</td>
-                        <td>科目タイプ</td>
+                        <td>id</td>
+                        <td>日付</td>
+                        <td>摘要</td>
                     </tr>
-                    {{#accounts}}
+                    {{#journals}}
                         <tr>
-                            <td>{{code.value}}</td>
-                            <td>{{name.value}}</td>
-                            <td>{{accountType}}</td>
+                            <td>{{id}}</td>
+                            <td>{{date.value}}</td>
+                            <td>{{summary.value}}</td>
                         </tr>
-                    {{/accounts}}
+                    {{/journals}}
                 </table>
             </div>
         </div>

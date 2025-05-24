@@ -1,9 +1,8 @@
 package com.example.accounting.controller
 
-import com.example.accounting.usecase.CreateAccountRequest
-import com.example.accounting.usecase.CreateAccountUseCase
-import com.example.accounting.usecase.ListAccountUseCase
-import org.springframework.http.MediaType
+import com.example.accounting.usecase.account.CreateAccountRequest
+import com.example.accounting.usecase.account.CreateAccountUseCase
+import com.example.accounting.usecase.account.ListAccountUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
