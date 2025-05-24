@@ -17,8 +17,20 @@ class AccountJDBCRepository(
                 Account.reconstruct(
                     AccountCode.of(accountRecord[ACCOUNTS.ACCOUNT_CODE]),
                     AccountName.of(accountRecord[ACCOUNTS.NAME]),
-                    AccountType.of(accountRecord[ACCOUNTS.ACCOUNT_TYPE]),
-                    accountRecord[ACCOUNTS.PARENT_ACCOUNT_CODE]?.let { AccountCode.of(it) }
+                    AccountType.of(accountRecord[ACCOUNTS.ACCOUNT_TYPE])
+                )
+            }
+    }
+
+    override fun findByName(name: AccountName): Account? {
+        return jooq.selectFrom(ACCOUNTS)
+            .where(ACCOUNTS.NAME.eq(name.value))
+            .fetchOne()
+            ?.let { accountRecord ->
+                Account.reconstruct(
+                    AccountCode.of(accountRecord[ACCOUNTS.ACCOUNT_CODE]),
+                    AccountName.of(accountRecord[ACCOUNTS.NAME]),
+                    AccountType.of(accountRecord[ACCOUNTS.ACCOUNT_TYPE])
                 )
             }
     }
@@ -32,7 +44,6 @@ class AccountJDBCRepository(
                     AccountCode.of(accountRecord[ACCOUNTS.ACCOUNT_CODE]),
                     AccountName.of(accountRecord[ACCOUNTS.NAME]),
                     AccountType.of(accountRecord[ACCOUNTS.ACCOUNT_TYPE]),
-                    accountRecord[ACCOUNTS.PARENT_ACCOUNT_CODE]?.let { AccountCode.of(it) }
                 )
             }
     }
@@ -42,7 +53,6 @@ class AccountJDBCRepository(
             .set(ACCOUNTS.ACCOUNT_CODE, account.code.value)
             .set(ACCOUNTS.NAME, account.name.value)
             .set(ACCOUNTS.ACCOUNT_TYPE, account.accountType.toString())
-            .set(ACCOUNTS.PARENT_ACCOUNT_CODE, account.parentCode?.value)
             .execute()
     }
 }
