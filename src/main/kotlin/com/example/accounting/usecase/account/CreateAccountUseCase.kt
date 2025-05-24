@@ -1,4 +1,4 @@
-package com.example.accounting.usecase
+package com.example.accounting.usecase.account
 
 import com.example.accounting.domain.account.*
 import org.springframework.stereotype.Service
