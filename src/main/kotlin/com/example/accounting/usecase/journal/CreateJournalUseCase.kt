@@ -19,7 +19,7 @@ class CreateJournalUseCase(
     fun execute(date: LocalDate, summary: String, journalDetails: List<CreateJournalDetailRequest>) {
         // 科目コードが実際に存在するかのチェック
         val accountCodes = accountRepository.list().map{ it.code.value }.toSet()
-        if (journalDetails.any{accountCodes.contains(it.accountCode)}) {
+        if (!journalDetails.all{accountCodes.contains(it.accountCode)}) {
             throw RuntimeException("科目コードが科目に存在していません")
         }
         val details = journalDetails.map{

@@ -1,0 +1,31 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        {{> sidebar}}
+        <div class="main">
+            <div class="header">
+                <h1>仕訳一覧</h1>
+            </div>
+            <div class="content">
+                <table class="table">
+                    <tr class="table-header">
+                        <td>id</td>
+                        <td>日付</td>
+                        <td>摘要</td>
+                    </tr>
+                    {{#journals}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{date.value}}</td>
+                            <td>{{summary.value}}</td>
+                        </tr>
+                    {{/journals}}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

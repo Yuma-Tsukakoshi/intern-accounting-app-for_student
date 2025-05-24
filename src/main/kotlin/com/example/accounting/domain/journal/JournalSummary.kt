@@ -12,7 +12,7 @@ data class JournalSummary(
         }
 
         private fun validate(value: String?) {
-            if (value != null && value.length < maxLength) {
+            if (value != null && value.length > maxLength) {
                 throw RuntimeException("摘要は${maxLength}文字内で入力してください")
             }
         }

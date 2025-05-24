@@ -42,7 +42,7 @@ class JournalJDBCRepository(
                             detailId,
                             JournalDetailDebitCreditType.of(rec.get(JOURNAL_DETAILS.DEBIT_CREDIT_TYPE)),
                             JournalDetailAmount.of(rec.get(JOURNAL_DETAILS.AMOUNT)),
-                            AccountCode.of(rec.get(JOURNAL_DETAILS.DEBIT_CREDIT_TYPE)),
+                            AccountCode.of(rec.get(JOURNAL_DETAILS.ACCOUNT_CODE)),
                         )
                     }
                 }

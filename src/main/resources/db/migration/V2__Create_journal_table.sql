@@ -56,3 +56,5 @@ INSERT INTO public.journal_details(journal_id, account_code, debit_credit_type, 
                                                                                             (7, '3002', 'DEBIT',  1500),  -- 預金
                                                                                             (7, '1011', 'CREDIT', 1500)   -- 預金利息
 ;
+ALTER TABLE PUBLIC.journals ALTER COLUMN id RESTART WITH 8;
+ALTER TABLE PUBLIC.journal_details ALTER COLUMN id RESTART WITH 16;
