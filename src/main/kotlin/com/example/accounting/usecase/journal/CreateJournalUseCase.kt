@@ -39,7 +39,7 @@ class CreateJournalUseCase(
 }
 
 class CreateJournalRequest(
-    val date: String,
+    val date: LocalDate,
     val summary: String,
     val journalDetails: List<CreateJournalDetailRequest>
 )
