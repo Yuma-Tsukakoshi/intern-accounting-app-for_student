@@ -1,18 +1,13 @@
 package com.example.accounting.domain.journal
 
+import java.time.LocalDate
+
 data class JournalDate(
-    val value: Int
+    val value: LocalDate
 ) {
     companion object{
-        fun of(value: Int): JournalDate {
-            validate(value)
+        fun of(value: LocalDate): JournalDate {
             return JournalDate(value)
-        }
-
-        private fun validate(value: Int) {
-            if (value < 0){
-                throw RuntimeException("有効な日付ではありません。")
-            }
         }
     }
 }
