@@ -26,7 +26,7 @@ class AccountController(
 
     @PostMapping("/accounts")
     fun create(@RequestBody params: CreateAccountRequest): ResponseEntity<String> {
-        createUseCase.execute(params.code, params.name, params.accountType, params.parentCode)
+        createUseCase.execute(params.code, params.name, params.accountType)
         return ResponseEntity.ok("ok")
     }
 }
