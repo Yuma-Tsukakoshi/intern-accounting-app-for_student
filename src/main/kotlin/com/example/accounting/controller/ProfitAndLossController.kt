@@ -1,5 +1,7 @@
 package com.example.accounting.controller
 
+import PlCategoryDto
+import PlDto
 import com.example.accounting.usecase.journal.CreateJournalRequest
 import com.example.accounting.usecase.journal.CreateJournalUseCase
 import com.example.accounting.usecase.journal.ListJournalUseCase
@@ -13,20 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 @Controller
-class JournalController(
-    private val listUseCase: ListJournalUseCase,
-    private val createUseCase: CreateJournalUseCase,
+class ProfitAndLossController(
+    private val listProfitAndLossUseCase: ListProfitAndLossUseCase
 ) {
-    @GetMapping("/journals")
-    fun list(model: Model): String {
-        val journals = listUseCase.execute()
-        model["journals"] = journals
-        return "journals"
-    }
-
-    @PostMapping("/journals")
-    fun create(@RequestBody params: CreateJournalRequest): ResponseEntity<String> {
-        createUseCase.execute(params.date, params.summary, params.journalDetails)
-        return ResponseEntity.ok("ok")
+    @GetMapping("/pl")
+    fun list(model: Model): Any {
+        val journals = listProfitAndLossUseCase.execute()
+        return journals
     }
 }
