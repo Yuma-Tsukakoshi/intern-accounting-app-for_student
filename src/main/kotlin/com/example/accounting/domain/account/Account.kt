@@ -1,6 +1,6 @@
 package com.example.accounting.domain.account
 
-class Account(
+data class Account private constructor(
     val code: AccountCode,
     val name: AccountName,
     val accountType: AccountType,

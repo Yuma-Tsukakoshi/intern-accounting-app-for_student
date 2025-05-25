@@ -2,7 +2,7 @@ package com.example.accounting.domain.journal
 
 import com.example.accounting.domain.account.AccountCode
 
-data class JournalDetail(
+data class JournalDetail private constructor(
     val id: Int?,
     val debitCreditType: JournalDetailDebitCreditType,
     val amount: JournalDetailAmount,
