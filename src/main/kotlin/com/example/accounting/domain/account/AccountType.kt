@@ -23,5 +23,12 @@ enum class AccountType {
                 else -> throw RuntimeException("PROFIT, LOSS, EQUITY, ASSET, LIABILITYで入力してください")
             }
         }
+
+        fun getListForPL():List<AccountType> {
+            return listOf(
+                PROFIT,
+                LOSS,
+            )
+        }
     }
 }

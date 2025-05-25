@@ -1,6 +1,7 @@
 package com.example.accounting.infrastructure
 
 import com.example.accounting.domain.account.*
+import com.example.accounting.domain.common.DateRange
 import com.example.accounting.domain.journal.Journal
 import com.example.accounting.domain.journal.JournalDate
 import com.example.accounting.domain.journal.JournalDetail
@@ -74,5 +75,45 @@ class JournalJDBCRepository(
         if (batchInserts.isNotEmpty()) {
             jooq.batch(*batchInserts).execute()
         }
+    }
+
+    override fun filterByDateRange(dateRange: DateRange): List<Journal> {
+        return jooq
+            .select(
+                JOURNALS.ID,
+                JOURNALS.DATE,
+                JOURNALS.SUMMARY,
+                JOURNAL_DETAILS.ID,
+                JOURNAL_DETAILS.JOURNAL_ID,
+                JOURNAL_DETAILS.ACCOUNT_CODE,
+                JOURNAL_DETAILS.DEBIT_CREDIT_TYPE,
+                JOURNAL_DETAILS.AMOUNT
+            )
+            .from(JOURNALS)
+            .leftJoin(JOURNAL_DETAILS).on(JOURNAL_DETAILS.JOURNAL_ID.eq(JOURNALS.ID))
+            // TODO : whereをjoin前にするほうが計算量が下がる
+            .where(JOURNALS.DATE.between(dateRange.from,dateRange.to))
+            .orderBy(JOURNALS.ID, JOURNAL_DETAILS.ID)
+            .fetch()
+            .groupBy { it.get(JOURNALS.ID) }
+            .map { (_, group) ->
+                val first = group.first()
+                val details = group.mapNotNull { rec ->
+                    rec.get(JOURNAL_DETAILS.ID)?.let { detailId ->
+                        JournalDetail.reconstruct(
+                            detailId,
+                            JournalDetailDebitCreditType.of(rec.get(JOURNAL_DETAILS.DEBIT_CREDIT_TYPE)),
+                            JournalDetailAmount.of(rec.get(JOURNAL_DETAILS.AMOUNT)),
+                            AccountCode.of(rec.get(JOURNAL_DETAILS.ACCOUNT_CODE)),
+                        )
+                    }
+                }
+                Journal.reconstruct(
+                    first.get(JOURNALS.ID),
+                    JournalDate.of(first.get(JOURNALS.DATE)),
+                    JournalSummary.of(first.get(JOURNALS.SUMMARY)),
+                    details
+                )
+            }
     }
 }
