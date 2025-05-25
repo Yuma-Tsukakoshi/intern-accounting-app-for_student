@@ -1,5 +1,5 @@
 package com.example.accounting.domain.journal
-data class Journal(
+data class Journal private constructor(
     val id: Int?,
     val date: JournalDate,
     val summary: JournalSummary,
