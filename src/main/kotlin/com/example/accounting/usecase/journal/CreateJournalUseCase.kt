@@ -9,8 +9,10 @@ import com.example.accounting.domain.journal.JournalDetailDebitCreditType
 import com.example.accounting.domain.journal.JournalRepository
 import com.example.accounting.domain.journal.JournalSummary
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 
+@Transactional
 @Service
 class CreateJournalUseCase(
     private val accountRepository: AccountRepository,
@@ -19,14 +21,12 @@ class CreateJournalUseCase(
     fun execute(date: LocalDate, summary: String, journalDetails: List<CreateJournalDetailRequest>) {
         // 科目コードが実際に存在するかのチェック
         val accountCodes = accountRepository.list().map{ it.code.value }.toSet()
-        if (!journalDetails.all{accountCodes.contains(it.accountCode)}) {
-            throw RuntimeException("科目コードが科目に存在していません")
-        }
-        val details = journalDetails.map{
+        val details = journalDetails.map{journalDetail ->
+            val accountCode = accountCodes.find{it == journalDetail.accountCode} ?: throw RuntimeException("科目コードが科目に存在していません")
             JournalDetail.create(
-                it.debitCreditType,
-                JournalDetailAmount.of(it.amount),
-                AccountCode.of(it.accountCode),
+                journalDetail.debitCreditType,
+                JournalDetailAmount.of(journalDetail.amount),
+                AccountCode.of(accountCode),
             )
         }
         val journal = Journal.create(
