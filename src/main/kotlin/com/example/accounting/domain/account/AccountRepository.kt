@@ -5,4 +5,5 @@ interface AccountRepository {
     fun findByName(name: AccountName): Account?
     fun list(): List<Account>
     fun insert(account: Account)
+    fun filterByAccountTypes(types: List<AccountType>): List<Account>
 }

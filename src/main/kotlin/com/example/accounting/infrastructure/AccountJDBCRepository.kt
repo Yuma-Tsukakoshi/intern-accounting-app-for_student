@@ -55,4 +55,18 @@ class AccountJDBCRepository(
             .set(ACCOUNTS.ACCOUNT_TYPE, account.accountType.toString())
             .execute()
     }
+
+    override fun filterByAccountTypes(types: List<AccountType>):List<Account>{
+        return jooq.selectFrom(ACCOUNTS)
+            .where(ACCOUNTS.ACCOUNT_TYPE.`in`(types))
+            .orderBy(ACCOUNTS.ACCOUNT_CODE)
+            .fetch()
+            .map { accountRecord ->
+                Account.reconstruct(
+                    AccountCode.of(accountRecord[ACCOUNTS.ACCOUNT_CODE]),
+                    AccountName.of(accountRecord[ACCOUNTS.NAME]),
+                    AccountType.of(accountRecord[ACCOUNTS.ACCOUNT_TYPE]),
+                )
+            }
+    }
 }

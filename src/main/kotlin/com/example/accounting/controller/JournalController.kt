@@ -3,6 +3,7 @@ package com.example.accounting.controller
 import com.example.accounting.usecase.journal.CreateJournalRequest
 import com.example.accounting.usecase.journal.CreateJournalUseCase
 import com.example.accounting.usecase.journal.ListJournalUseCase
+import com.example.accounting.usecase.journal.ListProfitAndLossUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

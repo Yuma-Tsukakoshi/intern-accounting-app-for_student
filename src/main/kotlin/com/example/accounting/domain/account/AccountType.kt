@@ -1,16 +1,16 @@
 package com.example.accounting.domain.account
 
-enum class AccountType {
+enum class AccountType(val value: String) {
     // 収益
-    PROFIT,
+    PROFIT("収益"),
     // 費用
-    LOSS,
+    LOSS("費用"),
     // 資本
-    EQUITY,
+    EQUITY("資本"),
     // 資産
-    ASSET,
+    ASSET("資産"),
     // 負債
-    LIABILITY;
+    LIABILITY("負債");
 
     companion object {
         fun of(value: String): AccountType {
@@ -22,6 +22,13 @@ enum class AccountType {
                 "LIABILITY" -> LIABILITY
                 else -> throw RuntimeException("PROFIT, LOSS, EQUITY, ASSET, LIABILITYで入力してください")
             }
+        }
+
+        fun getListForPL():List<AccountType> {
+            return listOf(
+                PROFIT,
+                LOSS,
+            )
         }
     }
 }

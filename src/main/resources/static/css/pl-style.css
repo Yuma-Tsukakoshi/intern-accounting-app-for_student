@@ -1,0 +1,29 @@
+.pl-wrapper .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pl-wrapper .table{
+    max-width: 900px;
+}
+
+.table-header th{
+     padding: 20px;
+ }
+
+tr th{
+    min-width: 300px;
+}
+
+td {
+    text-align: center;
+}
+td.money{
+    padding-right: 50px;
+    text-align: end;
+}
+
+.total-row{
+    border-top: 2px solid #e2e2ea;
+}
