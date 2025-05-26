@@ -1,6 +1,6 @@
 package com.example.accounting.controller
 
-import com.example.accounting.usecase.journal.ListProfitAndLossUseCase
+import com.example.accounting.usecase.profit_and_loss.ListProfitAndLossUseCase
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -17,24 +17,34 @@ class ProfitAndLossController(
     @GetMapping("/pl")
     fun list(
         model: Model,
-        @RequestParam month: YearMonth = YearMonth.now()
+        @RequestParam lastMonth: YearMonth?,
+        @RequestParam currentMonth: YearMonth = YearMonth.now()
     ): String {
-        val pl = listProfitAndLossUseCase.execute(month)
-        model["pl"] = pl
-        model["year"] = month.year
-        model["month"] = month.monthValue
+        val pl = listProfitAndLossUseCase.execute(lastMonth, currentMonth)
+        model["pl"]             = pl
+
+        // フォームのデフォルト入力値として渡す
+        model["lastYear"]       = lastMonth?.year ?: ""
+        model["lastMonthVal"]   = lastMonth?.monthValue ?: ""
+        model["currentYear"]    = currentMonth.year
+        model["currentMonthVal"]= currentMonth.monthValue
+
+        // JS 用：明細の内訳を Map<科目名, List<明細>> として JSON 変換
         model["PL_ENTRIES_BY_SUBJECT"] = objectMapper.writeValueAsString(
-            pl.profit.subjects.plus(pl.loss.subjects).associate {
-                it.accountName.value to it.entries.map { e ->
-                    mapOf(
-                        "date" to e.date.value.toString(),
-                        "type" to e.debitCreditType.value,
-                        "amount" to e.amount.value,
-                        "summary" to e.summary.value
-                    )
-                }
+            (pl.profit.subjects + pl.loss.subjects).associate { subj ->
+                subj.accountName.value to mapOf(
+                    "last"    to (subj.last?.entries?.map { e ->
+                        mapOf("date" to e.date.value.toString(), "type" to e.debitCreditType.value,
+                            "amount" to e.amount.value, "summary" to e.summary.value)
+                        } ?: emptyList()),
+                    "current" to subj.current.entries.map { e ->
+                        mapOf("date" to e.date.value.toString(), "type" to e.debitCreditType.value,
+                            "amount" to e.amount.value, "summary" to e.summary.value)
+                    }
+                )
             }
         )
+
         return "pl"
     }
 }
