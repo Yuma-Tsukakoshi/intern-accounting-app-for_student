@@ -1,19 +1,48 @@
-.pl-wrapper .content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/*全体レイアウトについてのcss*/
 
-.pl-wrapper .table{
+.pl-wrapper .content{
+    margin-left: auto;
+    margin-right: auto;
     max-width: 900px;
 }
 
+/*formについてのcss*/
+.month-form {
+    margin-bottom: 20px;
+}
+
+.month-form-box{
+    margin-bottom: 10px;
+}
+
+.month-form-box input {
+    width: 80px;
+    margin-right: 12px;
+    padding: 4px;
+    text-align: end;
+}
+
+.month-form button {
+    padding: 6px 12px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.month-form button:hover {
+    background-color: #303f9f;
+}
+
+/*tableについてのcss*/
+
 .table-header th{
-     padding: 20px;
+     padding: 20px 0;
  }
 
 tr th{
-    min-width: 300px;
+    /*min-width: 300px;*/
 }
 
 td {
@@ -26,4 +55,40 @@ td.money{
 
 .total-row{
     border-top: 2px solid #e2e2ea;
+}
+
+/*モーダルについてのcss*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 8px;
+    width: 70%;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.detail-trigger {
+    cursor: pointer;
+    color: #007BFF;
+    text-decoration: underline;
 }
