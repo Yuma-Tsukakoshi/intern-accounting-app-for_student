@@ -1,6 +1,6 @@
 package com.example.accounting.controller
 
-import com.example.accounting.usecase.journal.ListProfitAndLossUseCase
+import com.example.accounting.usecase.profit_and_loss.ListProfitAndLossUseCase
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
