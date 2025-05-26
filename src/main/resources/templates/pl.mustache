@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/pl-style.css">
+  <title>損益計算書（PL）</title>
+</head>
+<body>
+  <div class="wrapper pl-wrapper">
+    {{> sidebar}}
+    <div class="main">
+      <div class="header">
+        <h1>損益計算書（PL）</h1>
+      </div>
+      <div class="content">
+        <table class="table">
+          <thead>
+            <tr class="table-header">
+              <th>集計科目</th>
+              <th>科目</th>
+              <th class="money">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#pl}}
+            {{!-- PROFIT のセクション --}}
+            {{#profit}}
+              <tr class="category-row">
+                <td>{{category.value}}</td>
+                <td></td>
+                <td class="money">{{totalAmount}}</td>
+              </tr>
+              {{#subjects}}
+                <tr class="subject-row">
+                  <td></td>
+                  <td>{{accountName.value}}</td>
+                  <td class="money">{{totalAmount}}</td>
+                </tr>
+              {{/subjects}}
+            {{/profit}}
+
+            {{!-- LOSS のセクション --}}
+            {{#loss}}
+              <tr class="category-row">
+                <td>{{category.value}}</td>
+                <td></td>
+                <td class="money">{{totalAmount}}</td>
+              </tr>
+              {{#subjects}}
+                <tr class="subject-row">
+                  <td></td>
+                  <td>{{accountName.value}}</td>
+                  <td class="money">{{totalAmount}}</td>
+                </tr>
+              {{/subjects}}
+            {{/loss}}
+
+            {{!-- 純利益 (BENEFIT) --}}
+            <tr class="total-row">
+              <td>利益</td>
+              <td></td>
+              <td class="money">{{benefit}}</td>
+            </tr>
+            {{/pl}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
