@@ -19,6 +19,8 @@ class ProfitAndLossController(
     ): String {
         val pl = listProfitAndLossUseCase.execute(month)
         model["pl"] = pl
+        model["year"] = month.year
+        model["month"] = month.monthValue
         return "pl"
     }
 }

@@ -14,6 +14,14 @@
         <h1>損益計算書（PL）</h1>
       </div>
       <div class="content">
+        <form class="month-form" action="/pl" method="get">
+            <div class="month-form-box">
+                <input type="number" name="year" id="year" min="1900" max="2100" required  value="{{year}}">
+                <span>/</span>
+                <input type="number" name="month" id="month" min="1" max="12" required value="{{month}}">
+           </div>
+            <button type="submit">送信する</button>
+        </form>
         <table class="table">
           <thead>
             <tr class="table-header">
@@ -68,5 +76,6 @@
       </div>
     </div>
   </div>
+  <script src="/js/pl.js"></script>
 </body>
 </html>
