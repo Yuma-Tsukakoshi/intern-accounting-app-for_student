@@ -1,10 +1,10 @@
 package com.example.accounting.domain.journal
 
-enum class JournalDetailDebitCreditType {
-    // 借方
-    DEBIT,
-    // 貸方
-    CREDIT;
+enum class JournalDetailDebitCreditType(
+    val value: String,
+) {
+    DEBIT("借方"),
+    CREDIT("貸方");
 
     companion object {
         fun of(value: String): JournalDetailDebitCreditType {
