@@ -14,94 +14,168 @@
         <h1>損益計算書（PL）</h1>
       </div>
       <div class="content">
-        <form class="month-form" action="/pl" method="get">
-            <div class="month-form-box">
-                <input type="number" name="year" id="year" min="1900" max="2100" required  value="{{year}}">
-                <span>/</span>
-                <input type="number" name="month" id="month" min="1" max="12" required value="{{month}}">
-           </div>
-            <button type="submit">送信する</button>
+        <form class="month-form">
+          <div class="month-form-box">
+            <!-- 前月入力 -->
+            <label>前月:</label>
+            <input type="number" id="lastYear"   name="lastYear"
+                   min="1900" max="2100" placeholder="-"
+                   value="{{lastYear}}">
+            <span>/</span>
+            <input type="number" id="lastMonth"  name="lastMonth"
+                   min="1" max="12" placeholder="-"
+                   value="{{lastMonthVal}}">
+          </div>
+
+          <div class="month-form-box">
+            <!-- 当月入力 -->
+            <label>当月:</label>
+            <input type="number" id="currentYear"  name="currentMonth"
+                   min="1900" max="2100" required
+                   value="{{currentYear}}">
+            <span>/</span>
+            <input type="number" id="currentMonth" name="currentMonth"
+                   min="1" max="12" required
+                   value="{{currentMonthVal}}">
+          </div>
+
+          <button type="submit">送信する</button>
         </form>
-        <table class="table">
+<table class="table">
           <thead>
             <tr class="table-header">
               <th>集計科目</th>
               <th>科目</th>
-              <th class="money">金額</th>
+              <th class="money">前月金額</th>
+              <th class="money">当月金額</th>
+              <th class="money">差額</th>
             </tr>
           </thead>
           <tbody>
-          {{#pl}}
-            {{!-- PROFIT のセクション --}}
-            {{#profit}}
-              <tr class="category-row">
-                <td>{{category.value}}</td>
-                <td></td>
-                <td class="money">{{totalAmount}}</td>
-              </tr>
-              {{#subjects}}
-                <tr class="subject-row">
+            {{#pl}}
+              {{!-- PROFIT --}}
+              {{#profit}}
+                <tr class="category-row">
+                  <td>{{category.value}}</td>
                   <td></td>
-                  <td>{{accountName.value}}</td>
                   <td class="money">
-                    <span class="detail-trigger" data-subject="{{accountName.value}}">
-                    {{totalAmount}}
-                    </span>
+                    {{#lastAmount}}{{lastAmount}}{{/lastAmount}}
+                    {{^lastAmount}}-{{/lastAmount}}
+                  </td>
+                  <td class="money">{{currentAmount}}</td>
+                  <td class="money">
+                    {{#catDiff}}{{catDiff}}{{/catDiff}}
+                    {{^catDiff}}-{{/catDiff}}
                   </td>
                 </tr>
-              {{/subjects}}
-            {{/profit}}
+                {{#subjects}}
+                  <tr class="subject-row">
+                    <td></td>
+                    <td>{{accountName.value}}</td>
+                    <td class="money">
+                      {{#last}}
+                        <span class="detail-trigger" data-subject="{{accountName.value}}" data-period="last">
+                          {{last.amount}}
+                        </span>
+                      {{/last}}
+                      {{^last}}-{{/last}}
+                    </td>
+                    <td class="money">
+                      <span class="detail-trigger"
+                            data-subject="{{accountName.value}}" data-period="current">
+                        {{current.amount}}
+                      </span>
+                    </td>
+                    <td class="money">
+                      {{#diff}}{{diff}}{{/diff}}
+                      {{^diff}}-{{/diff}}
+                    </td>
+                  </tr>
+                {{/subjects}}
+              {{/profit}}
 
-            {{!-- LOSS のセクション --}}
-            {{#loss}}
-              <tr class="category-row">
-                <td>{{category.value}}</td>
-                <td></td>
-                <td class="money">{{totalAmount}}</td>
-              </tr>
-              {{#subjects}}
-                <tr class="subject-row">
+              {{!-- LOSS --}}
+              {{#loss}}
+                <tr class="category-row">
+                  <td>{{category.value}}</td>
                   <td></td>
-                  <td>{{accountName.value}}</td>
                   <td class="money">
-                    <span class="detail-trigger" data-subject="{{accountName.value}}">
-                    {{totalAmount}}
-                    </span>
+                    {{#lastAmount}}{{lastAmount}}{{/lastAmount}}
+                    {{^lastAmount}}-{{/lastAmount}}
+                  </td>
+                  <td class="money">{{currentAmount}}</td>
+                  <td class="money">
+                    {{#catDiff}}{{catDiff}}{{/catDiff}}
+                    {{^catDiff}}-{{/catDiff}}
                   </td>
                 </tr>
-              {{/subjects}}
-            {{/loss}}
+                {{#subjects}}
+                  <tr class="subject-row">
+                    <td></td>
+                    <td>{{accountName.value}}</td>
+                    <td class="money">
+                      {{#last}}
+                          <span class="detail-trigger"
+                                data-subject="{{accountName.value}}" data-period="last">
+                            {{last.amount}}
+                          </span>
+                      {{/last}}
+                      {{^last}}-{{/last}}
+                    </td>
+                    <td class="money">
+                      <span class="detail-trigger"
+                            data-subject="{{accountName.value}}" data-period="current">
+                        {{current.amount}}
+                      </span>
+                    </td>
+                    <td class="money">
+                      {{#diff}}{{diff}}{{/diff}}
+                      {{^diff}}-{{/diff}}
+                    </td>
+                  </tr>
+                {{/subjects}}
+              {{/loss}}
 
-            {{!-- 純利益 (BENEFIT) --}}
-            <tr class="total-row">
-              <td>利益</td>
-              <td></td>
-              <td class="money">{{benefit}}</td>
-            </tr>
+              {{!-- BENEFIT --}}
+              {{#benefit}}
+                <tr class="total-row">
+                  <td>利益</td>
+                  <td></td>
+                  <td class="money">
+                    {{#lastBenefit}}{{lastBenefit}}{{/lastBenefit}}
+                    {{^lastBenefit}}-{{/lastBenefit}}
+                  </td>
+                  <td class="money">{{currentBenefit}}</td>
+                  <td class="money">
+                    {{#diffBenefit}}{{diffBenefit}}{{/diffBenefit}}
+                    {{^diffBenefit}}-{{/diffBenefit}}
+                  </td>
+                </tr>
+              {{/benefit}}
             {{/pl}}
           </tbody>
         </table>
       </div>
     </div>
   </div>
+
+  <!-- モーダル本体 -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
-      <h2>明細内訳</h2>
+      <h2 id="modal-title"></h2>
       <table class="table detail-table">
         <thead>
           <tr class="table-header">
-            <th>日付</th>
-            <th>貸借</th>
-            <th>金額</th>
-            <th>摘要</th>
+            <th>日付</th><th>貸借</th><th>金額</th><th>摘要</th>
           </tr>
         </thead>
-        <tbody id="modal-detail-body">
-        </tbody>
+        <tbody id="modal-body"></tbody>
       </table>
     </div>
   </div>
+
+  <!-- JS 用データ -->
   <script>
     window.PL_ENTRIES_BY_SUBJECT = {{{PL_ENTRIES_BY_SUBJECT}}};
   </script>
