@@ -1,0 +1,38 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="wrapper">
+  {{> sidebar}}
+  <div class="main">
+    <div class="header">
+      <h1>科目一覧</h1>
+    </div>
+
+    {{#flash}}
+      <div class="flash">{{.}}</div>
+    {{/flash}}
+
+    <div class="content">
+      <a href="/accounts/new" class="btn">新規作成</a>
+
+      <table class="table">
+        <tr class="table-header">
+          <td>科目コード</td>
+          <td>科目名</td>
+          <td>科目タイプ</td>
+        </tr>
+        {{#accounts}}
+          <tr>
+            <td>{{code.value}}</td>
+            <td>{{name.value}}</td>
+            <td>{{accountType.value}}</td>
+          </tr>
+        {{/accounts}}
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>
