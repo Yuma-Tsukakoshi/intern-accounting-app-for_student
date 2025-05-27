@@ -48,10 +48,6 @@ tr th{
 td {
     text-align: center;
 }
-td.money{
-    padding-right: 50px;
-    text-align: end;
-}
 
 .total-row{
     border-top: 2px solid #e2e2ea;
@@ -89,3 +85,6 @@ td.money{
     text-decoration: underline;
 }
 
+.memo{
+    text-align: end;
+}
