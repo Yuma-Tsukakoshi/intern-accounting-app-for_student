@@ -34,9 +34,11 @@ class ProfitAndLossController(
 
         val pl = listProfitAndLossUseCase.execute(lastRange, currentRange)
         model["pl"]             = pl
+        val fromMonth = lastMonthFrom?.toString()?.let { "${it}" } ?: ""
+        val toMonth = lastMonthTo?.toString()?.let { "${it}" } ?: ""
 
-        model["lastMonthLabel"]    = lastMonth?.toString()?.let { "${it}" } ?: "-"
-        model["currentMonthLabel"] = currentMonth.toString().let { "${it}" }
+        model["lastMonthLabel"]    = fromMonth + "-" + toMonth
+        model["currentMonthLabel"] = currentMonthFrom.toString() + "〜" + currentMonthTo.toString()
 
         // フォームのデフォルト入力値として渡す
         model["lastYear"]       = lastMonthFrom?.year ?: ""
