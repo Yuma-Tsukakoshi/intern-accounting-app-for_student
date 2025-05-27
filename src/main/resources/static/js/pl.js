@@ -5,26 +5,33 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", e => {
         e.preventDefault();
 
-        const ly = document.getElementById("lastYear").value;
-        let lm = document.getElementById("lastMonth").value;
-        const cy = document.getElementById("currentYear").value;
-        let cm = document.getElementById("currentMonth").value;
+        const cfY = document.getElementById("currentMonthFromYear").value;
+        let cfM   = document.getElementById("currentMonthFromMonth").value;
+        const ctY = document.getElementById("currentMonthToYear").value;
+        let ctM   = document.getElementById("currentMonthToMonth").value;
+        const lfY = document.getElementById("lastMonthFromYear").value;
+        let lfM   = document.getElementById("lastMonthFromMonth").value;
+        const ltY = document.getElementById("lastMonthToYear").value;
+        let ltM   = document.getElementById("lastMonthToMonth").value;
 
-        // 1桁月を2桁に
-        if (lm && lm.length === 1) lm = "0" + lm;
-        if (cm.length === 1) cm = "0" + cm;
+        // 一桁月を必ず2桁にパディング
+        if (cfM.length === 1) cfM = "0" + cfM;
+        if (ctM.length === 1) ctM = "0" + ctM;
+        if (lfM.length === 1) lfM = "0" + lfM;
+        if (ltM.length === 1) ltM = "0" + ltM;
 
-        const params = [];
-        if (ly && lm) {
-            params.push(`lastMonth=${ly}-${lm}`);
+        const params = [
+            `currentMonthFrom=${cfY}-${cfM}`,
+            `currentMonthTo=${ctY}-${ctM}`
+        ];
+        if (lfY && lfM && ltY && ltM) {
+            params.push(`lastMonthFrom=${lfY}-${lfM}`);
+            params.push(`lastMonthTo=${ltY}-${ltM}`);
         }
-        // 当期は必須
-        params.push(`currentMonth=${cy}-${cm}`);
 
         window.location.href = `/pl?${params.join("&")}`;
     });
 });
-
 document.addEventListener("DOMContentLoaded", () => {
     const modal       = document.getElementById("modal");
     const modalTitle  = document.getElementById("modal-title");
