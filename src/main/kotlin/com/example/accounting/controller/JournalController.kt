@@ -3,7 +3,6 @@ package com.example.accounting.controller
 import com.example.accounting.usecase.journal.CreateJournalRequest
 import com.example.accounting.usecase.journal.CreateJournalUseCase
 import com.example.accounting.usecase.journal.ListJournalUseCase
-import com.example.accounting.usecase.profit_and_loss.ListProfitAndLossUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -11,6 +10,8 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
+import java.time.LocalDate
 
 @Controller
 class JournalController(
@@ -18,8 +19,18 @@ class JournalController(
     private val createUseCase: CreateJournalUseCase,
 ) {
     @GetMapping("/journals")
-    fun list(model: Model): String {
-        val journals = listUseCase.execute()
+    fun list(
+        model: Model,
+        @RequestParam fromDate: LocalDate = LocalDate.now().withDayOfMonth(1),
+        @RequestParam toDate: LocalDate = LocalDate.now()
+    ): String {
+        val journals = listUseCase.execute(
+            fromDate = fromDate,
+            toDate = toDate
+        )
+        model["fromDate"] = fromDate
+        model["toDate"] = toDate
+
         model["journals"] = journals
         return "journals"
     }
