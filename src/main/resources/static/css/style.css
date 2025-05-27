@@ -118,15 +118,14 @@ body {
 }
 
 .tooltip {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0,0,0,0.75);
     color: #fff;
-    padding: 6px 10px;
+    padding: 4px 8px;
     border-radius: 4px;
     font-size: 12px;
-    max-width: 300px;
+    max-width: 200px;
     white-space: pre-wrap;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 .debit-th{

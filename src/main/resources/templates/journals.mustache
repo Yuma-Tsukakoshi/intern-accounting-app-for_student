@@ -31,8 +31,13 @@
                 <td>
                   {{#date}}{{date.value}}{{/date}}
                 </td>
-                <td class="txt-limit">
-                   {{#summary}}{{summary.value}}{{/summary}}
+                <td class="txt-limit"
+                    data-fulltext="{{#summary}}{{summary.value}}{{/summary}}">
+                  {{#summary}}
+                    {{summary.value}}
+                  {{/summary}}
+                  {{^summary}}
+                  {{/summary}}
                 </td>
                 <td>
                   {{#debit}}{{debit.accountName.value}}{{/debit}}
