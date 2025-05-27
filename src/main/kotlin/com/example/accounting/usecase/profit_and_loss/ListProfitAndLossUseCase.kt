@@ -16,20 +16,20 @@ class ListProfitAndLossUseCase(
     private val journalRepository: JournalRepository,
 ) {
     fun execute(
-        lastMonth: YearMonth?,
-        currentMonth: YearMonth,
+        lastMonth: DateRange?,
+        currentMonth: DateRange,
     ): Pl {
         val lastMonthRange = lastMonth?.let { lastMonth ->
             DateRange.Companion.of(
-                lastMonth.atDay(1),
-                lastMonth.atEndOfMonth(),
+                lastMonth.from,
+                lastMonth.to
             )
         }
 
         val currentMonthRange = DateRange.Companion.of(
-            currentMonth.atDay(1),
-            currentMonth.atEndOfMonth(),
-        )
+            currentMonth.from,
+            currentMonth.to
+    )
 
         /* P/L に載せる科目(収益・費用)を取得 */
         val plTypes = AccountType.Companion.getListForPL()
