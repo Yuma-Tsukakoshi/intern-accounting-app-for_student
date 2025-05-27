@@ -2,23 +2,38 @@ package com.example.accounting.usecase.journal
 
 import com.example.accounting.domain.account.AccountName
 import com.example.accounting.domain.account.AccountRepository
+import com.example.accounting.domain.common.DateRange
 import com.example.accounting.domain.journal.JournalDate
 import com.example.accounting.domain.journal.JournalDetailAmount
 import com.example.accounting.domain.journal.JournalDetailDebitCreditType
 import com.example.accounting.domain.journal.JournalRepository
 import com.example.accounting.domain.journal.JournalSummary
+import com.example.accounting.domain.profit_and_loss.JournalPair
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.time.YearMonth
 
 @Service
 class ListJournalUseCase(
     private val accountRepository: AccountRepository,
     private val journalRepository: JournalRepository,
 ) {
-    fun execute(): List<JournalDetailDisplay> {
+    fun execute(
+        fromDate: LocalDate = LocalDate.of(1970, 1,1 ),
+        toDate: LocalDate = LocalDate.now(),
+    ): List<JournalDetailDisplay> {
+        val dateRange = DateRange.Companion.of(
+            fromDate,
+            toDate
+        )
+
+        /* 今月の仕訳を取得 */
+        val targetJournals = journalRepository.filterByDateRange(dateRange)
+
         val accountNameMap = accountRepository.list()
             .associate { it.code to it.name }
 
-        return journalRepository.list().flatMap { journal ->
+        return targetJournals.flatMap { journal ->
             // 借方・貸方リスト
             val debits  = journal.details.filter { it.debitCreditType == JournalDetailDebitCreditType.DEBIT }
             val credits = journal.details.filter { it.debitCreditType == JournalDetailDebitCreditType.CREDIT }
