@@ -1,6 +1,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/journal.css">
 </head>
 <body>
   <div class="wrapper">
@@ -10,6 +11,35 @@
         <h1>仕訳一覧</h1>
       </div>
       <div class="content">
+
+<form class="date-form">
+  <div class="date-row">
+    <div class="month-form-box">
+      <!-- 開始日入力 -->
+      <label for="fromDate">開始日:</label>
+      <input
+        type="date"
+        id="fromDate"
+        name="fromDate"
+        class="input-date"
+        required
+        value="{{fromDate}}">
+    </div>
+
+    <div class="month-form-box">
+      <!-- 終了日入力 -->
+      <label for="toDate">最終日:</label>
+      <input
+        type="date"
+        id="toDate"
+        name="toDate"
+        class="input-date"
+        value="{{toDate}}">
+    </div>
+  </div>
+
+  <button type="submit" class="submit-button">送信する</button>
+  </form>
         <table class="table">
           <thead>
             <tr class="table-header">

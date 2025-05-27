@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".date-form");
+    if (!form) return;
+
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const fromDate = document.getElementById("fromDate").value;
+        const toDate = document.getElementById("toDate").value;
+
+        window.location.href = `/journals?fromDate=${fromDate}&toDate=${toDate}`;
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
     const maxLen = 7;  // 表示したい最大文字数
 
     document.querySelectorAll(".txt-limit").forEach(el => {
