@@ -15,32 +15,95 @@
       </div>
       <div class="content">
         <form class="month-form">
+          <div class="month-form-box">
+            <label>対象範囲:</label>
+            <div class="month-form-row">
+              <input
+                type="number"
+                id="currentMonthFromYear"
+                name="currentMonthFrom"
+                min="1900"
+                max="2100"
+                required
+                value="{{currentYearFrom}}"
+              >
+              <span>/</span>
+              <input
+                type="number"
+                id="currentMonthFromMonth"
+                name="currentMonthFrom"
+                min="1"
+                max="12"
+                required
+                value="{{currentMonthFromMonthVal}}"
+              >
+              <span> 〜 </span>
+              <input
+                type="number"
+                id="currentMonthToYear"
+                name="currentMonthTo"
+                min="1900"
+                max="2100"
+                required
+                value="{{currentYearTo}}"
+              >
+              <span>/</span>
+              <input
+                type="number"
+                id="currentMonthToMonth"
+                name="currentMonthTo"
+                min="1"
+                max="12"
+                required
+                value="{{currentMonthToMonthVal}}"
+              >
+            </div>
+          </div>
 
           <div class="month-form-box">
-            <!-- 当月入力 -->
-            <label>対象月:</label>
-            <input type="number" id="currentYear"  name="currentMonth"
-                   min="1900" max="2100" required
-                   value="{{currentYear}}">
-            <span>/</span>
-            <input type="number" id="currentMonth" name="currentMonth"
-                   min="1" max="12" required
-                   value="{{currentMonthVal}}">
-          </div>
-          <div class="month-form-box">
-            <!-- 前月入力 -->
-            <label>比較月:</label>
-            <input type="number" id="lastYear"   name="lastYear"
-                   min="1900" max="2100" placeholder="-"
-                   value="{{lastYear}}">
-            <span>/</span>
-            <input type="number" id="lastMonth"  name="lastMonth"
-                   min="1" max="12" placeholder="-"
-                   value="{{lastMonthVal}}">
+            <label>比較範囲:</label>
+            <div class="month-form-row">
+              <input
+                type="number"
+                id="lastMonthFromYear"
+                name="lastMonthFrom"
+                min="1900"
+                max="2100"
+                value="{{lastYearFrom}}"
+              >
+              <span>/</span>
+              <input
+                type="number"
+                id="lastMonthFromMonth"
+                name="lastMonthFrom"
+                min="1"
+                max="12"
+                value="{{lastMonthFromMonthVal}}"
+              >
+              <span> 〜 </span>
+              <input
+                type="number"
+                id="lastMonthToYear"
+                name="lastMonthTo"
+                min="1900"
+                max="2100"
+                value="{{lastYearTo}}"
+              >
+              <span>/</span>
+              <input
+                type="number"
+                id="lastMonthToMonth"
+                name="lastMonthTo"
+                min="1"
+                max="12"
+                value="{{lastMonthToMonthVal}}"
+              >
+            </div>
           </div>
 
           <button type="submit">送信する</button>
         </form>
+
         <p class="memo">単位：円</p>
 <table class="table">
           <thead>

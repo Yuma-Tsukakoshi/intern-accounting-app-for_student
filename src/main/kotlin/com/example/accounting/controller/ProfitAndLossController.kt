@@ -37,14 +37,18 @@ class ProfitAndLossController(
         val fromMonth = lastMonthFrom?.toString()?.let { "${it}" } ?: ""
         val toMonth = lastMonthTo?.toString()?.let { "${it}" } ?: ""
 
-        model["lastMonthLabel"]    = fromMonth + "-" + toMonth
-        model["currentMonthLabel"] = currentMonthFrom.toString() + "〜" + currentMonthTo.toString()
+        model["lastMonthLabel"]    = fromMonth + " - " + toMonth
+        model["currentMonthLabel"] = currentMonthFrom.toString() + " - " + currentMonthTo.toString()
 
-        // フォームのデフォルト入力値として渡す
-        model["lastYear"]       = lastMonthFrom?.year ?: ""
-        model["lastMonthVal"]   = lastMonthFrom?.monthValue ?: ""
-        model["currentYear"]    = currentMonthFrom.year
-        model["currentMonthVal"]= currentMonthFrom.monthValue
+        model["currentYearFrom"]         = currentMonthFrom.year
+        model["currentMonthFromMonthVal"]= currentMonthFrom.monthValue
+        model["currentYearTo"]           = currentMonthTo.year
+        model["currentMonthToMonthVal"]  = currentMonthTo.monthValue
+
+        model["lastYearFrom"]            = lastMonthFrom?.year     ?: ""
+        model["lastMonthFromMonthVal"]   = lastMonthFrom?.monthValue?: ""
+        model["lastYearTo"]              = lastMonthTo?.year       ?: ""
+        model["lastMonthToMonthVal"]     = lastMonthTo?.monthValue ?: ""
 
         // JS 用：明細の内訳を Map<科目名, List<明細>> として JSON 変換
         model["PL_ENTRIES_BY_SUBJECT"] = objectMapper.writeValueAsString(
