@@ -19,7 +19,7 @@ class ListJournalUseCase(
     private val journalRepository: JournalRepository,
 ) {
     fun execute(
-        fromDate: LocalDate = LocalDate.of(1970, 1,1 ),
+        fromDate: LocalDate = LocalDate.now().withDayOfMonth(1),
         toDate: LocalDate = LocalDate.now(),
     ): List<JournalDetailDisplay> {
         val dateRange = DateRange.Companion.of(

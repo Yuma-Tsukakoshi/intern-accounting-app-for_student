@@ -21,13 +21,15 @@ class JournalController(
     @GetMapping("/journals")
     fun list(
         model: Model,
-        @RequestParam fromDate: LocalDate = LocalDate.of(1970, 1, 1),
+        @RequestParam fromDate: LocalDate = LocalDate.now().withDayOfMonth(1),
         @RequestParam toDate: LocalDate = LocalDate.now()
     ): String {
         val journals = listUseCase.execute(
             fromDate = fromDate,
             toDate = toDate
         )
+        model["fromDate"] = fromDate
+        model["toDate"] = toDate
 
         model["journals"] = journals
         return "journals"
