@@ -116,3 +116,23 @@ body {
     border-radius: 4px;
     margin-bottom: 10px;
 }
+
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    max-width: 300px;
+    white-space: pre-wrap;
+    z-index: 9999;
+}
+
+.debit-th{
+    background-color: #ffe699;
+}
+
+.credit-th{
+    background-color: #c6e0b4;
+}

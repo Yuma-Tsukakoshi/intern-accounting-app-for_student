@@ -1,31 +1,58 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="wrapper">
-        {{> sidebar}}
-        <div class="main">
-            <div class="header">
-                <h1>仕訳一覧</h1>
-            </div>
-            <div class="content">
-                <table class="table">
-                    <tr class="table-header">
-                        <td>id</td>
-                        <td>日付</td>
-                        <td>摘要</td>
-                    </tr>
-                    {{#journals}}
-                        <tr>
-                            <td>{{id}}</td>
-                            <td>{{date.value}}</td>
-                            <td>{{summary.value}}</td>
-                        </tr>
-                    {{/journals}}
-                </table>
-            </div>
-        </div>
+  <div class="wrapper">
+    {{> sidebar}}
+    <div class="main">
+      <div class="header">
+        <h1>仕訳一覧</h1>
+      </div>
+      <div class="content">
+        <table class="table">
+          <thead>
+            <tr class="table-header">
+              <th rowspan="2">日付</th>
+              <th rowspan="2">摘要</th>
+              <th class="debit-th" colspan="2">借方</th>
+              <th class="credit-th" colspan="2">貸方</th>
+            </tr>
+            <tr class="table-header">
+              <th class="debit-th">科目</th>
+              <th class="debit-th">金額</th>
+              <th class="credit-th">科目</th>
+              <th class="credit-th">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#journals}}
+              <tr>
+                <td>
+                  {{#date}}{{date.value}}{{/date}}
+                </td>
+                <td class="txt-limit">
+                   {{#summary}}{{summary.value}}{{/summary}}
+                </td>
+                <td>
+                  {{#debit}}{{debit.accountName.value}}{{/debit}}
+                </td>
+                <td class="money">
+                  {{#debit}}{{debit.amount.value}}{{/debit}}
+                </td>
+                <td>
+                  {{#credit}}{{credit.accountName.value}}{{/credit}}
+                </td>
+                <td class="money">
+                  {{#credit}}{{credit.amount.value}}{{/credit}}
+                </td>
+              </tr>
+            {{/journals}}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+  <script src="/js/journal.js"></script>
 </body>
 </html>
