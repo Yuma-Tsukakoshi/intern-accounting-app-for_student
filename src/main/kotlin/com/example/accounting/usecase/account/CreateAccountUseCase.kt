@@ -25,8 +25,8 @@ class CreateAccountUseCase(
     }
 }
 
-class CreateAccountRequest(
-    val code: String,
-    val name: String,
-    val accountType: AccountType,
+data class CreateAccountRequest(
+    var code: String = "",
+    var name: String = "",
+    var accountType: AccountType = AccountType.PROFIT
 )
